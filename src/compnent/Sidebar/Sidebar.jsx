@@ -2,19 +2,30 @@ import React, { useState } from "react";
 import { assets } from "../../assets/assets";
 import { FaPlus } from "react-icons/fa6";
 import { IoIosMenu } from "react-icons/io";
- 
+
 function Sidebar() {
   const [extended, setExtend] = useState(false);
-  
+
   return (
-    <div className={`h-screen bg-[#f0f4f9] flex flex-col p-2  ease-in-out duration-100 ${extended ? "translate-x w-60" : "-translate-x w-16"}`}>
-      <div className=" w-full pl-2 sm:pl-0">
-        <IoIosMenu onClick={()=>setExtend(prev=> !prev)}  className="w-8 h-8 "/>
+    <div
+      className={`h-screen bg-[#e5e7eb] flex flex-col p-2  ease-in-out duration-200 ${
+        extended ? "translate-x w-60" : "-translate-x w-16"
+      }`}
+    >
+      <div className={`w-full flex items-center ${extended ? "justify-start" : "justify-center" }`}>
+        <spa>
+          <IoIosMenu
+            onClick={() => setExtend((prev) => !prev)}
+            className="w-8 h-8  "
+          />
+        </spa>
       </div>
       <div className="middle flex flex-col  flex-grow mt-3 w-full">
         <div
           className={`new-chat flex items-center mb-4 cursor-pointer ${
-            extended ? "bg-[#e6eaf1] rounded-full  justify-start " : "justify-center"
+            extended
+              ? "bg-[#e6eaf1] rounded-full  justify-start "
+              : "justify-center"
           }`}
         >
           <span className="bg-[#e6eaf1] p-2 rounded-full">
@@ -38,7 +49,11 @@ function Sidebar() {
         ) : null}
       </div>
       <div className="w-full flex flex-col space-y-3">
-        <div className={`w-full flex  gap-2 items-center cursor-pointer ${extended ? "justify-start" : "justify-center"}`}>
+        <div
+          className={`w-full flex  gap-2 items-center cursor-pointer ${
+            extended ? "justify-start" : "justify-center"
+          }`}
+        >
           <img
             className="w-6 h-6 "
             src={assets.question_icon}
@@ -46,7 +61,11 @@ function Sidebar() {
           />
           {extended ? <p className="text-sm">Help</p> : null}
         </div>
-        <div className={`w-full flex  gap-2 items-center cursor-pointer ${extended ? "justify-start" : "justify-center"}`}>
+        <div
+          className={`w-full flex  gap-2 items-center cursor-pointer ${
+            extended ? "justify-start" : "justify-center"
+          }`}
+        >
           <img
             className="w-6 h-6"
             src={assets.history_icon}
@@ -54,7 +73,11 @@ function Sidebar() {
           />
           {extended ? <p className="text-sm">Activity</p> : null}
         </div>
-        <div className={`w-full flex  gap-2 items-center cursor-pointer ${extended ? "justify-start" : "justify-center"}`}>
+        <div
+          className={`w-full flex  gap-2 items-center cursor-pointer ${
+            extended ? "justify-start" : "justify-center"
+          }`}
+        >
           <img
             className="w-6 h-6"
             src={assets.setting_icon}
