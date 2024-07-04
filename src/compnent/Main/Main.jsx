@@ -9,10 +9,9 @@ import { IoMdSend } from "react-icons/io";
 import { FaImage } from "react-icons/fa6";
 import { FaMicrophone } from "react-icons/fa";
 
-
 function Main() {
   return (
-    <div className="min-h-screen w-full flex flex-col">
+    <div className="min-h-screen w-full flex flex-col overflow-hidden">
       <div className="p-3 flex justify-between items-center w-full">
         <div className="w-full">
           <p className="ml-2 font-normal text-xl">Gemini</p>
@@ -25,26 +24,26 @@ function Main() {
           />
         </div>
       </div>
-      <div className="flex-grow flex flex-col m-16 ">
-        <div className="bg-white flex flex-col w-full flex-grow">
+      <div className="flex-grow flex flex-col m-4 sm:m-8 md:m-16">
+        <div className="bg-white flex flex-col w-full flex-grow overflow-auto">
           <div className="w-full">
-            <div className="mx-auto  max-w-[844px] flex flex-col justify-start ">
-              <span className="w-full flex justify-start ">
-                <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-red-500">
+            <div className="mx-auto max-w-[844px] flex flex-col justify-start">
+              <span className="w-full flex justify-start">
+                <h1 className="text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-red-500">
                   Hello, Kashif
                 </h1>
               </span>
-              <span className="flex justify-start ">
-                <p className="text-[48px] text-black opacity-30 font-semibold">
+              <span className="flex justify-start">
+                <p className="text-2xl sm:text-[48px] text-black opacity-30 font-semibold">
                   How can I help you today?
                 </p>
               </span>
             </div>
           </div>
-          <div className="flex flex-col items-center mt-10">
-            <div className="flex justify-center w-full ">
+          <div className="flex flex-col items-center mt-6 sm:mt-10">
+            <div className="flex justify-center w-full">
               <div className="mx-auto max-w-[850px]">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4  h-[200px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   <Card
                     text="As a social trend expert, explain a term"
                     icon={icon1}
@@ -67,9 +66,8 @@ function Main() {
           </div>
         </div>
       </div>
-
-      <div className=" flex items-center justify-center w-full pb-3">
-        <div className="w-full px-4  max-w-[876px]">
+      <div className="flex items-center justify-center w-full pb-3 mt-4 sm:mt-6">
+        <div className="w-full px-4 max-w-[876px]">
           <div className="bg-gray-100 flex items-center border rounded-full shadow-sm p-3">
             <input
               type="text"
@@ -77,9 +75,9 @@ function Main() {
               className="bg-gray-100 flex-grow outline-none text-gray-700 placeholder-gray-500 w-full"
             />
             <div className="flex items-center space-x-3 opacity-65">
-            <i><FaImage/></i>
-              <i><FaMicrophone/></i>
-              <i> <IoMdSend  /></i>
+              <i><FaImage /></i>
+              <i><FaMicrophone /></i>
+              <i><IoMdSend /></i>
             </div>
           </div>
           <div className="text-xs text-center text-gray-500 mt-2">
