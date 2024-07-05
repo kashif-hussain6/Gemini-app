@@ -11,3 +11,15 @@
 }
 
 
+.result-data::-webkit-scrollbar {
+    display: none;
+}
+
+
+.result-data {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+
+
