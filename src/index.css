@@ -21,5 +21,23 @@
     scrollbar-width: none;  
 }
 
+/* styles.css */
+@keyframes gradientAnimation {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .hr-animated {
+    background-size: 200% 200%;
+    animation: gradientAnimation 1s linear infinite;
+  }
+  
+
+
+  
 
 
