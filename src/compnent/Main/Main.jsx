@@ -105,7 +105,7 @@ function Main() {
                     <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
                   </div>
                   ) : (
-                    <div className="p-4 rounded-lg shadow-sm flex-grow">
+                    <div className="p-4 rounded-lg shadow-sm flex-grow text-[15px] leading-9 ">
                       <p
                         className="text-gray-700"
                         dangerouslySetInnerHTML={{ __html: resultData }}
@@ -146,3 +146,4 @@ function Main() {
 }
 
 export default Main;
+    
