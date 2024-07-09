@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ text, icon }) => {
   return (
-    <div className="relative p-4 flex flex-col justify-between bg-[#e6eaf1] hover:bg-gray-300 duration-100 rounded-2xl h-[200px] sm:h-[220px] md:h-[240px] lg:h-[200px] w-full max-w-xs sm:max-w-sm md:max-w-md">
+    <div className="relative p-4 flex flex-col justify-between bg-[#e6eaf1] hover:bg-gray-300 duration-100 rounded-2xl h-[200px] sm:h-[220px] w-full max-w-xs sm:max-w-sm md:max-w-md">
       <div className="flex-grow">
         <p className="text-lg mb-2 text-black opacity-80">{text}</p>
       </div>

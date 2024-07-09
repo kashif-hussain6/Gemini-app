@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { assets } from "../../assets/assets";
 import { FaPlus } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
+import { Context } from "../../Context/ContextProvider";
 
 function Sidebar() {
   const [extended, setExtended] = useState(false);
+  const { previousPrompt } = useContext(Context);
 
   return (
     <div
@@ -14,13 +16,13 @@ function Sidebar() {
     >
       <div className="flex items-center mb-2">
         <IoIosMenu
-          onClick={() => setExtended(prev => !prev)}
+          onClick={() => setExtended((prev) => !prev)}
           className={`cursor-pointer w-8 h-8 ${extended ? "ml-0" : "ml-1.5"}`}
         />
       </div>
 
       <div className="flex-grow mb-4">
-        <div className={`flex items-center cursor-pointer mb-2 rounded-full gap-2 bg-gray-100 p-2`}>
+        <div className="flex items-center cursor-pointer mb-2 rounded-full gap-2 bg-gray-100 p-2">
           <FaPlus className={`w-4 h-4 ${extended ? "ml-0" : "ml-1.5"}`} />
           {extended && <p className="text-sm">New chat</p>}
         </div>
@@ -28,13 +30,21 @@ function Sidebar() {
         {extended && (
           <div className="mb-4">
             <p className="text-xs mb-2">Recent</p>
-            <div className="flex items-center mb-2">
-              <img
-                className="w-5 h-5 mr-2"
-                src={assets.message_icon}
-                alt="Message icon"
-              />
-              <p className="text-xs">CSS Unit Conversion</p>
+            <div className="flex flex-col mb-2">
+              {previousPrompt && previousPrompt.length > 0 ? (
+                previousPrompt.map((item, index) => (
+                  <div key={index} className="flex items-center mb-2">
+                    <img
+                      className="w-5 h-5 mr-2"
+                      src={assets.message_icon}
+                      alt="Message icon"
+                    />
+                    <p className="text-xs">{item}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs">No recent prompts</p>
+              )}
             </div>
           </div>
         )}
