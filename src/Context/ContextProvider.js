@@ -1,22 +1,20 @@
 import { createContext, useEffect, useState } from "react";
-import run from "../Config/Gemini"; // Ensure this path is correct
+import run from "../Config/Gemini";
 
 export const Context = createContext();
 
 const ContextProvider = (props) => {
   const [input, setInput] = useState('');
   const [recentPrompt, setRecentPrompt] = useState('');
-  const [previousPrompt, setPreviousPrompt] = useState([]); // Use camelCase for consistency
+  const [previousPrompt, setPreviousPrompt] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState('');
-  const [displayedData, setDisplayedData] = useState('');
+  const [responses, setResponses] = useState([]);
 
-  // Function to handle the response and format it as required
   const formatResponse = (response) => {
-    if (!response) return ''; // Ensure response is defined
-    
-    // Remove "## " from the start if it exists
+    if (!response) return '';
+
     if (response.startsWith("## ")) {
       response = response.substring(3);
     }
@@ -24,48 +22,32 @@ const ContextProvider = (props) => {
     const responseArray = response.split("**");
     let formattedResponse = "";
     for (let i = 0; i < responseArray.length; i++) {
-      if (i % 2 === 0) {
-        formattedResponse += responseArray[i];
-      } else {
-        formattedResponse += "<b>" + responseArray[i] + "</b>";
-      }
+      formattedResponse += i % 2 === 0 ? responseArray[i] : "<b>" + responseArray[i] + "</b>";
     }
     return formattedResponse.split("*").join("<br/>");
   };
 
-  const simulateTyping = (text) => {
-    let index = 0;
-    setDisplayedData('');
-    
-    const typingInterval = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedData((prev) => prev + text[index]);
-        index++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 50); // Adjust typing speed by changing the interval (50ms)
-  };
+  const onSent = async () => {
+    if (!input.trim()) return;
 
-  const onSent = async (prompt) => { 
-    setResultData("");
     setLoading(true);
     setShowResult(true);
     setRecentPrompt(input);
+    setPreviousPrompt((prevPrompts) => [...prevPrompts, input]);
+
     try {
       const response = await run(input);
-      if (response) {
-        const formattedResponse = formatResponse(response);
-        setResultData(formattedResponse);
-        simulateTyping(formattedResponse);
-      } else {
-        setResultData("No response received.");
-        setDisplayedData("No response received.");
-      }
+      const formattedResponse = response ? formatResponse(response) : "No response received.";
+      const newResponse = { prompt: input, response: formattedResponse };
+      setResponses((prevResponses) => [...prevResponses, newResponse]);
+      setResultData(formattedResponse);
     } catch (error) {
-      setResultData("Error: " + error.message);
-      setDisplayedData("Error: " + error.message);
+      const errorMessage = "Error: " + error.message;
+      const newResponse = { prompt: input, response: errorMessage };
+      setResponses((prevResponses) => [...prevResponses, newResponse]);
+      setResultData(errorMessage);
     }
+
     setLoading(false);
     setInput("");
   };
@@ -83,9 +65,9 @@ const ContextProvider = (props) => {
     showResult,
     loading,
     resultData,
-    displayedData,
+    responses,
     input,
-    setInput
+    setInput,
   };
 
   return (

@@ -8,20 +8,20 @@ import icon4 from "../../assets/message_icon.png";
 import { IoMdSend } from "react-icons/io";
 import { FaImage, FaMicrophone } from "react-icons/fa";
 import { Context } from "../../Context/ContextProvider";
+import Markdown from "markdown-to-jsx";
 
 function Main() {
   const {
     onSent,
-    recentPrompt,
-    showResult,
+    responses,  // Make sure this is an array of response objects
     loading,
-    resultData,
     setInput,
     input,
   } = useContext(Context);
   const [dataSent, setDataSent] = useState(false);
 
-  const handleSend = () => {
+  const handleSend = (e) => {
+    e.preventDefault();
     onSent();
     setDataSent(true);
   };
@@ -40,8 +40,8 @@ function Main() {
           />
         </div>
       </div>
-      <div className="flex-grow flex flex-col relative overflow-hidden pb-24">
-        <div className="bg-white flex flex-col w-full flex-grow overflow-y-auto">
+      <div className="flex-grow flex flex-col relative overflow-hidden">
+        <div className="bg-white flex flex-col w-full flex-grow overflow-y-auto p-4 items-center">
           {!dataSent ? (
             <div className="w-full flex-grow">
               <div className="mx-auto max-w-[844px] flex flex-col justify-start">
@@ -82,44 +82,46 @@ function Main() {
               </div>
             </div>
           ) : (
-            <div className="result flex-grow p-4 overflow-y-auto w-full flex justify-center">
-              <div className="mx-auto w-[65%]">
-                <div className="result-title flex items-center mb-4">
-                  <img
-                    src={assets.user_icon}
-                    alt="User"
-                    className="w-10 h-10 rounded-full mr-2"
-                  />
-                  <p className="text-xl font-semibold">{recentPrompt}</p>
-                </div>
-                <div className="result-data flex items-start overflow-y-auto h-full">
-                  <img
-                    src={assets.gemini_icon}
-                    alt="Gemini"
-                    className="w-10 h-10 rounded-full mr-2"
-                  />
-                  {loading ? (
-                    <div className="w-full flex flex-col gap-[10px]">
-                    <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
-                    <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
-                    <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
+            <div className="result flex-grow w-full flex flex-col items-center">
+              {responses.map((response, index) => (
+                <div key={index} className="response-item mb-4 w-full max-w-[800px]">
+                  <div className="result-title flex items-center mb-2">
+                    <img
+                      src={assets.user_icon}
+                      alt="User"
+                      className="w-10 h-10 rounded-full mr-2"
+                    />
+                    <p className="text-xl font-semibold">{response.prompt}</p>
                   </div>
-                  ) : (
-                    <div className="p-4 rounded-lg shadow-sm flex-grow text-[15px] leading-9 ">
-                      <p
-                        className="text-gray-700"
-                        dangerouslySetInnerHTML={{ __html: resultData }}
-                      />
+                  <div className="result-data flex items-start">
+                    <img
+                      src={assets.gemini_icon}
+                      alt="Gemini"
+                      className="w-10 h-10 rounded-full mr-2"
+                    />
+                    <div className="p-4 rounded-lg shadow-sm flex-grow text-[15px] leading-9">
+                      <Markdown>{response.response}</Markdown>
+                      <hr />
                     </div>
-                  )}
+                  </div>
                 </div>
-              </div>
+              ))}
+              {loading && (
+                <div className="w-full flex flex-col items-center gap-[10px]">
+                  <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
+                  <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
+                  <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
+                </div>
+              )}
             </div>
           )}
         </div>
       </div>
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[850px] p-4 ">
-        <div className="bg-gray-100 flex items-center border rounded-full shadow-sm p-3">
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[850px] p-4 bg-white-100 z-10 bg-white">
+        <form
+          onSubmit={handleSend}
+          className="bg-gray-100 flex items-center border rounded-full shadow-sm p-3"
+        >
           <input
             onChange={(e) => setInput(e.target.value)}
             value={input}
@@ -130,9 +132,11 @@ function Main() {
           <div className="flex items-center space-x-3 opacity-65">
             <FaImage />
             <FaMicrophone />
-            <IoMdSend onClick={handleSend} />
+            <button type="submit">
+              <IoMdSend />
+            </button>
           </div>
-        </div>
+        </form>
         <div className="text-xs text-center text-gray-500 mt-2">
           Gemini may display inaccurate info, including about people, so
           double-check its responses.{" "}
@@ -146,4 +150,3 @@ function Main() {
 }
 
 export default Main;
-    
