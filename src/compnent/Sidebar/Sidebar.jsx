@@ -13,32 +13,30 @@ function Sidebar() {
       {/* Menu icon for small screens */}
       <div className="lg:hidden fixed top-0 left-0 p-4 z-50">
         <IoIosMenu
-        
           onClick={() => setExtended((prev) => !prev)}
           className="cursor-pointer w-8 h-8"
         />
-        
       </div>
 
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-screen transition-transform transform ${
           extended ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 lg:static lg:flex lg:flex-col ${
+        } lg:translate-x-0 lg:static lg:flex lg:flex-col transition-all duration-300 ease-in-out ${
           extended ? "lg:w-60  sm:w-80" : "lg:w-16"
         } bg-gray-200 z-40`}
       >
         {/* Menu icon for large screens */}
-        <div className="hidden lg:flex items-center mb-2 p-4 ">
+        <div className="hidden lg:flex items-center mb-2 p-4">
           <IoIosMenu
             onClick={() => setExtended((prev) => !prev)}
-            className={`cursor-pointer w-8 h-8 ${extended ? " ml-0 transition-transform transform " : "ml-1.5"}`}
+            className={`cursor-pointer w-8 h-8  ${extended ? "ml-0" : "ml-1.5"}`}
           />
         </div>
 
         {/* Sidebar content */}
-        <div className="flex flex-col px-3 pt-16 lg:pt-0 h-screen  ">
-          <div className="flex-grow mb-4  ">
+        <div className="flex flex-col px-3 pt-16 lg:pt-0 h-screen">
+          <div className="flex-grow mb-4">
             <div className="flex items-center cursor-pointer mb-2 rounded-full gap-2 bg-gray-100 p-2">
               <FaPlus className={`w-4 h-4 ${extended ? "ml-0" : "ml-1.5"}`} />
               {extended && <p className="text-sm">New chat</p>}
