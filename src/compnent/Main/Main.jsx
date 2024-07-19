@@ -13,7 +13,7 @@ import Markdown from "markdown-to-jsx";
 function Main() {
   const {
     onSent,
-    responses,  // Make sure this is an array of response objects
+    responses,
     loading,
     setInput,
     input,
@@ -27,7 +27,7 @@ function Main() {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col">
+    <div class="h-screen w-full flex flex-col overflow-hidden">
       <div className="p-3 flex justify-between items-center w-full">
         <div className="w-full">
           <p className="ml-2 font-normal text-xl">Gemini</p>
@@ -57,9 +57,9 @@ function Main() {
                 </span>
               </div>
               <div className="flex flex-col items-center mt-6 sm:mt-10">
-                <div className="flex justify-center w-full">
+                <div className="w-full">
                   <div className="mx-auto max-w-[850px]">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="flex gap-4 overflow-x-auto scrollbar-hide md:grid md:grid-cols-4 md:gap-4">
                       <Card
                         text="As a social trend expert, explain a term"
                         icon={icon1}
@@ -117,35 +117,33 @@ function Main() {
           )}
         </div>
       </div>
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[850px] p-4 bg-white-100 z-10 bg-white">
-        <form
-          onSubmit={handleSend}
-          className="bg-gray-100 flex items-center border rounded-full shadow-sm p-3"
-        >
-          <input
+      <div class="     px-4 bg-white ">
+    <form onSubmit={handleSend} class="flex items-center border rounded-full shadow-sm p-3 mx-auto bg-gray-100  w-full max-w-[750px]">
+        <input
             onChange={(e) => setInput(e.target.value)}
             value={input}
             type="text"
             placeholder="Enter a prompt here"
-            className="bg-gray-100 flex-grow outline-none text-gray-700 placeholder-gray-500 w-full"
-          />
-          <div className="flex items-center space-x-3 opacity-65">
+            class="flex-grow bg-gray-100 outline-none text-gray-700 placeholder-gray-500"
+        />
+        <div class="flex items-center space-x-3 opacity-65">
             <FaImage />
             <FaMicrophone />
             <button type="submit">
-              <IoMdSend />
+                <IoMdSend />
             </button>
-          </div>
-        </form>
-        <div className="text-xs text-center text-gray-500 mt-2">
-          Gemini may display inaccurate info, including about people, so
-          double-check its responses.{" "}
-          <a href="https://example.com" className="text-blue-500">
-            Your privacy & Gemini Apps
-          </a>
         </div>
-      </div>
+    </form>
+    <div class="text-xs text-center text-gray-500 mt-2">
+        Gemini may display inaccurate info, including about people, so double-check its responses. <a href="https://example.com" class="text-blue-500">Your privacy & Gemini Apps</a>
     </div>
+</div>
+
+
+  
+
+</div>
+  
   );
 }
 
