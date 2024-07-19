@@ -11,13 +11,7 @@ import { Context } from "../../Context/ContextProvider";
 import Markdown from "markdown-to-jsx";
 
 function Main() {
-  const {
-    onSent,
-    responses,
-    loading,
-    setInput,
-    input,
-  } = useContext(Context);
+  const { onSent, responses, loading, setInput, input } = useContext(Context);
   const [dataSent, setDataSent] = useState(false);
 
   const handleSend = (e) => {
@@ -27,10 +21,10 @@ function Main() {
   };
 
   return (
-    <div class="h-screen w-full flex flex-col overflow-hidden">
-      <div className="p-3 flex justify-between items-center w-full">
+    <div className="h-screen w-full flex flex-col overflow-hidden">
+      <div className="p-3 flex justify-between items-center w-full bg-white shadow-md">
         <div className="w-full">
-          <p className="ml-2 font-normal text-xl">Gemini</p>
+          <p className="pt-[4px] font-normal ml-12 text-xl">Gemini</p>
         </div>
         <div className="flex items-center rounded-full w-auto">
           <img
@@ -117,33 +111,28 @@ function Main() {
           )}
         </div>
       </div>
-      <div class="     px-4 bg-white ">
-    <form onSubmit={handleSend} class="flex items-center border rounded-full shadow-sm p-3 mx-auto bg-gray-100  w-full max-w-[750px]">
-        <input
+      <div className="px-4 bg-white">
+        <form onSubmit={handleSend} className="flex items-center border rounded-full shadow-sm p-3 mx-auto bg-gray-100 w-full max-w-[750px]">
+          <input
             onChange={(e) => setInput(e.target.value)}
             value={input}
             type="text"
             placeholder="Enter a prompt here"
-            class="flex-grow bg-gray-100 outline-none text-gray-700 placeholder-gray-500"
-        />
-        <div class="flex items-center space-x-3 opacity-65">
+            className="flex-grow bg-gray-100 outline-none text-gray-700 placeholder-gray-500"
+          />
+          <div className="flex items-center space-x-3 opacity-65">
             <FaImage />
             <FaMicrophone />
             <button type="submit">
-                <IoMdSend />
+              <IoMdSend />
             </button>
+          </div>
+        </form>
+        <div className="text-xs text-center text-gray-500 mt-2">
+          Gemini may display inaccurate info, including about people, so double-check its responses. <a href="https://example.com" className="text-blue-500">Your privacy & Gemini Apps</a>
         </div>
-    </form>
-    <div class="text-xs text-center text-gray-500 mt-2">
-        Gemini may display inaccurate info, including about people, so double-check its responses. <a href="https://example.com" class="text-blue-500">Your privacy & Gemini Apps</a>
+      </div>
     </div>
-</div>
-
-
-  
-
-</div>
-  
   );
 }
 
