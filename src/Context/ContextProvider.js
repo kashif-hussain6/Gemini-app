@@ -54,7 +54,7 @@ const ContextProvider = (props) => {
 
   useEffect(() => {
     onSent("What is react js");
-  }, []);
+  }, [onSent]);
 
   const contextValue = {
     previousPrompt,
