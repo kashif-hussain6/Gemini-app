@@ -11,13 +11,15 @@ import { Context } from "../../Context/ContextProvider";
 import Markdown from "markdown-to-jsx";
 
 function Main() {
-  const { onSent, responses, loading, setInput, input } = useContext(Context);
+  const { onSent, responses, loading, setInput, input, recentPrompt } = useContext(Context);
   const [dataSent, setDataSent] = useState(false);
 
   const handleSend = (e) => {
     e.preventDefault();
-    onSent();
-    setDataSent(true);
+    if (input.trim()) {
+      onSent();
+      setDataSent(true);
+    }
   };
 
   return (
@@ -102,6 +104,14 @@ function Main() {
               ))}
               {loading && (
                 <div className="w-full flex flex-col items-center gap-[10px]">
+                  <div className="result-title flex items-center mb-2">
+                    <img
+                      src={assets.user_icon}
+                      alt="User"
+                      className="w-10 h-10 rounded-full mr-2"
+                    />
+                    <p className="text-xl font-semibold">{recentPrompt}</p>
+                  </div>
                   <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
                   <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />
                   <hr className="border-none w-[800px] h-[20px] bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] hr-animated" />

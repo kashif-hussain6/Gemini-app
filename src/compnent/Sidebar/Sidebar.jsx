@@ -20,7 +20,7 @@ function Sidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-screen transition-transform transform ${
+        className={`fixed top-0 left-0 h-screen ${
           extended ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:static lg:flex lg:flex-col transition-all duration-300 ease-in-out ${
           extended ? "lg:w-60  sm:w-80" : "lg:w-16"
