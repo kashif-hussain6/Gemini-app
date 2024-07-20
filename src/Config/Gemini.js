@@ -1,11 +1,4 @@
-// Install the Generative AI SDK
-// $ npm install @google/generative-ai
-// See the getting started guide for more information
-// https://ai.google.dev/gemini-api/docs/get-started/node
-
-const {
-  GoogleGenerativeAI,
-} = require("@google/generative-ai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const apiKey = "AIzaSyAQhrpyVBdhZcvcNhUWPsBu7IcOxcP39tg";  
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -32,9 +25,7 @@ async function run(prompt) {
     ],
   });
 
-  const inputMessage = "INSERT_INPUT_HERE";  // Replace with your actual input
   const result = await chatSession.sendMessage(prompt);
-  console.log(result.response.text(), 'logs message');
   return result.response.text();
 }
 

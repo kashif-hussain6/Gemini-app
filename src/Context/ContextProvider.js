@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import run from "../Config/Gemini";
 
 export const Context = createContext();
@@ -51,10 +51,6 @@ const ContextProvider = (props) => {
     setLoading(false);
     setInput("");
   };
-
-  useEffect(() => {
-    onSent("What is react js");
-  }, [onSent]);
 
   const contextValue = {
     previousPrompt,
