@@ -9,10 +9,12 @@ import { IoMdSend } from "react-icons/io";
 import { FaImage, FaMicrophone } from "react-icons/fa";
 import { Context } from "../../Context/ContextProvider";
 import Markdown from "markdown-to-jsx";
+import { X } from "lucide-react"; // Added for the close icon
 
 function Main() {
   const { onSent, responses, loading, setInput, input, recentPrompt } = useContext(Context);
   const [dataSent, setDataSent] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // State for popup
 
   const handleSend = (e) => {
     e.preventDefault();
@@ -22,20 +24,51 @@ function Main() {
     }
   };
 
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen); // Toggle popup state
+  };
+
   return (
     <div className="h-screen w-full flex flex-col overflow-hidden">
       <div className="p-3 flex justify-between items-center w-full bg-white shadow-md">
         <div className="w-full">
           <p className="pt-[4px] font-normal ml-12 text-xl">Gemini</p>
         </div>
-        <div className="flex items-center rounded-full w-auto">
+        <div className="flex items-center rounded-full w-auto" onClick={togglePopup}>
           <img
-            className="w-8 h-8 rounded-full"
+            className="w-8 h-8 rounded-full cursor-pointer"
             src={assets.user_icon}
             alt="User Icon"
           />
         </div>
       </div>
+
+      {/* Popup Component */}
+      {isPopupOpen && (
+        <div className="absolute top-16 right-4 z-50">
+          <div className="w-72 shadow-lg rounded-2xl bg-white">
+            <div className="p-4">
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-sm text-gray-600">kashifdayal4@gmail.com</span>
+                <button className="h-6 w-6" onClick={togglePopup}>
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              {/* Add any additional content you want in the popup here */}
+              <div className="text-xs text-gray-500 justify-center space-x-2 pb-3">
+                <a href="#" className="hover:underline">
+                  Privacy Policy
+                </a>
+                <span>•</span>
+                <a href="#" className="hover:underline">
+                  Terms of Service
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex-grow flex flex-col relative overflow-hidden">
         <div className="bg-white flex flex-col w-full flex-grow overflow-y-auto p-4 items-center">
           {!dataSent ? (
